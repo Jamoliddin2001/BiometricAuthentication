@@ -8,15 +8,20 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import tj.jamoliddin.biometricauthentication.data.model.User
 import tj.jamoliddin.biometricauthentication.domain.UiState
 import tj.jamoliddin.biometricauthentication.domain.repository.AuthRepository
+import tj.jamoliddin.biometricauthentication.domain.repository.PersistenceRepository
 import javax.inject.Inject
 
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val persistence: PersistenceRepository
 ): ViewModel(){
+
+    val isAuthorized = persistence.isAuthorized()
 
     private val _state: MutableState<UiState<String>> = mutableStateOf(UiState.Idle)
     val state: State<UiState<String>> = _state
@@ -27,9 +32,21 @@ class AuthViewModel @Inject constructor(
                 is UiState.Loading -> _state.value = UiState.Loading
                 is UiState.Success -> _state.value = UiState.Success(result.data)
                 is UiState.Error -> _state.value = UiState.Error(result.message)
-                else -> {
+                else -> {}
+            }
+        }.launchIn(viewModelScope)
+    }
 
-                }
+    private val _stateLogin: MutableState<UiState<User?>> = mutableStateOf(UiState.Idle)
+    val stateLogin: State<UiState<User?>> = _stateLogin
+
+    fun login(email: String, password: String) {
+        authRepository.login(email, password).onEach { result ->
+            when(result){
+                is UiState.Loading -> _stateLogin.value = UiState.Loading
+                is UiState.Success -> _stateLogin.value = UiState.Success(result.data)
+                is UiState.Error -> _stateLogin.value = UiState.Error(result.message)
+                else -> {}
             }
         }.launchIn(viewModelScope)
     }
