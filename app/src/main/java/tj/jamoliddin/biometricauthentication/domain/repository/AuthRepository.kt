@@ -41,6 +41,7 @@ class AuthRepository @Inject constructor(
                     try {
                         val user = data.toObject(User::class.java)
                         persistence.saveUser(user)
+                        persistence.savePassword(password)
                         emit(UiState.Success(user))
                     } catch (e: Exception){
                         emit(UiState.Error(message = e.message ?: "Error"))
@@ -56,13 +57,14 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    fun register(email: String, password: String): Flow<UiState<String>> = flow {
+    fun register(email: String, password: String, user: User): Flow<UiState<String>> = flow {
         try {
             emit(UiState.Loading)
             firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             val uid = firebaseAuth.uid.toString()
-            userCollection.document(uid).set(User("+9","J","S","2001")).await()
-            persistence.saveUser(User("+9","J","S","2001"))
+            userCollection.document(uid).set(user).await()
+            persistence.saveUser(user)
+            persistence.savePassword(password)
             emit(UiState.Success("SUCCESS"))
         } catch (e: Exception) {
             emit(UiState.Error<String>(message = e.message ?: "Error"))

@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import tj.jamoliddin.biometricauthentication.domain.model.Graph
 import tj.jamoliddin.biometricauthentication.domain.model.Screen
+import tj.jamoliddin.biometricauthentication.ui.screens.auth.registration.RegistrationScreen
 
 
 fun NavGraphBuilder.RegisterGraph(
@@ -18,7 +19,7 @@ fun NavGraphBuilder.RegisterGraph(
         composable(
             route = Screen.RegisterScreen.route
         ){
-
+            RegistrationScreen(navController = navController)
         }
     }
 }

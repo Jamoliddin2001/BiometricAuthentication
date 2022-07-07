@@ -26,8 +26,8 @@ class AuthViewModel @Inject constructor(
     private val _state: MutableState<UiState<String>> = mutableStateOf(UiState.Idle)
     val state: State<UiState<String>> = _state
 
-    fun register(email: String, password: String) {
-        authRepository.register(email,password).onEach { result ->
+    fun register(email: String, password: String, user: User) {
+        authRepository.register(email,password, user).onEach { result ->
             when(result){
                 is UiState.Loading -> _state.value = UiState.Loading
                 is UiState.Success -> _state.value = UiState.Success(result.data)

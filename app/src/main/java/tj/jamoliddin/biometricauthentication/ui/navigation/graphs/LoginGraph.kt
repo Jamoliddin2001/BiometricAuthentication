@@ -1,5 +1,8 @@
 package tj.jamoliddin.biometricauthentication.ui.navigation.graphs
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -11,8 +14,10 @@ import tj.jamoliddin.biometricauthentication.ui.screens.auth.login.LoginPassword
 import tj.jamoliddin.biometricauthentication.ui.screens.auth.login.LoginScreen
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.LoginGraph(
-    navController: NavController
+    navController: NavController,
+    activity: FragmentActivity
 ) {
     navigation(
         startDestination = Screen.LoginScreen.route,
@@ -26,7 +31,7 @@ fun NavGraphBuilder.LoginGraph(
         composable(
             route = Screen.LoginPasswordScreen.route
         ) {
-            LoginPasswordScreen(navController = navController)
+            LoginPasswordScreen(navController = navController, activity = activity)
         }
         composable(
             route = Screen.ForgotPasswordScreen.route

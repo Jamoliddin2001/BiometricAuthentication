@@ -117,7 +117,7 @@ fun LoginScreen(
                     .align(Alignment.End)
                     .clickable(
                         onClick = {
-                            //TODO
+                            navController.navigate(Screen.ForgotPasswordScreen.route)
                         },
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() },
@@ -192,11 +192,11 @@ fun LoginScreen(
     }
 
     if (loginState is UiState.Error) {
-        Toast.makeText(context, loginState.message, Toast.LENGTH_SHORT).show()
+        LaunchedEffect(key1 = true){
+            Toast.makeText(context, loginState.message, Toast.LENGTH_LONG).show()
+        }
     }
 }
-
-
 
 
 

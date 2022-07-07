@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.sp
 import retrofit2.Retrofit
 import tj.jamoliddin.biometricauthentication.domain.util.EMAIL
 import tj.jamoliddin.biometricauthentication.domain.util.PASSWORD
+import tj.jamoliddin.biometricauthentication.domain.util.PHONE
+import tj.jamoliddin.biometricauthentication.domain.util.USER
 import tj.jamoliddin.biometricauthentication.ui.theme.GrayIndicator
 import tj.jamoliddin.biometricauthentication.ui.theme.GrayLabel
 import tj.jamoliddin.biometricauthentication.ui.theme.Primary
@@ -47,7 +49,7 @@ fun CustomTextField(
     )
 ) {
 
-    var text by rememberSaveable { mutableStateOf("") }
+    var text by remember { mutableStateOf("") }
     var passwordVisibility by remember {
         mutableStateOf(false)
     }
@@ -101,6 +103,8 @@ fun CustomTextField(
             val icon = when (contentDescription) {
                 EMAIL -> Icons.Filled.Email
                 PASSWORD -> Icons.Filled.Security
+                PHONE -> Icons.Filled.Phone
+                USER -> Icons.Filled.Person
                 else -> null
             }
             if(icon != null)
