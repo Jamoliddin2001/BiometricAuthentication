@@ -13,4 +13,7 @@ class MainScreenViewModel @Inject constructor(
 
     val user = persistence.getUser()
 
+    fun clearAll(){
+        persistence.clearAll()
+    }
 }

@@ -50,10 +50,4 @@ object BiometricPromptUtils {
             setNegativeButtonText(activity.getString(R.string.prompt_info_use_app_password))
         }.build()
 
-    fun Context.getActivity(): AppCompatActivity? = when (this) {
-        is AppCompatActivity -> this
-        is ContextWrapper -> baseContext.getActivity()
-        else -> null
-    }
-
 }

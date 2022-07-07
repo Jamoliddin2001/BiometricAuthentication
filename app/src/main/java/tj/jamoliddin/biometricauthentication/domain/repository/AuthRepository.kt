@@ -1,7 +1,5 @@
 package tj.jamoliddin.biometricauthentication.domain.repository
 
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.flow.Flow
@@ -9,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import tj.jamoliddin.biometricauthentication.data.model.User
 import tj.jamoliddin.biometricauthentication.domain.UiState
-import tj.jamoliddin.biometricauthentication.domain.interfaces.AuthRepo
+import tj.jamoliddin.biometricauthentication.domain.interfaces.Auth
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,17 +17,9 @@ class AuthRepository @Inject constructor(
     private val userCollection: CollectionReference,
     private val firebaseAuth: FirebaseAuth,
     private val persistence: PersistenceRepository
-) {
+): Auth {
 
-    fun addUser(user: User) {
-        try {
-            userCollection.document().set(user)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    fun login(email: String, password: String): Flow<UiState<User?>> = flow {
+    override fun login(email: String, password: String): Flow<UiState<User?>> = flow {
         try {
             emit(UiState.Loading)
             firebaseAuth.signInWithEmailAndPassword(email, password).await()
@@ -57,7 +47,7 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    fun register(email: String, password: String, user: User): Flow<UiState<String>> = flow {
+    override fun register(email: String, password: String, user: User): Flow<UiState<String>> = flow {
         try {
             emit(UiState.Loading)
             firebaseAuth.createUserWithEmailAndPassword(email, password).await()
@@ -71,12 +61,14 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    fun saveUserData(user: User) {
-
+    override fun forgotPassword(email: String): Flow<UiState<String>> = flow {
+        try {
+            emit(UiState.Loading)
+            firebaseAuth.sendPasswordResetEmail(email).await()
+            persistence.clearAll()
+            emit(UiState.Success(data = "Success"))
+        } catch (e: Exception){
+            emit(UiState.Error(message = e.message?:"Error"))
+        }
     }
-
-    private fun getUserFromLogin(uid: String) {
-
-    }
-
 }

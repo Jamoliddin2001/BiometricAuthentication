@@ -51,4 +51,20 @@ class AuthViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+    val password = persistence.key
+
+    private val _stateForgotPassword: MutableState<UiState<String>> = mutableStateOf(UiState.Idle)
+    val stateForgotPassword: State<UiState<String>> = _stateForgotPassword
+
+    fun forgotPassword(email: String){
+        authRepository.forgotPassword(email).onEach { result ->
+            when(result){
+                is UiState.Loading -> _stateForgotPassword.value = UiState.Loading
+                is UiState.Success -> _stateForgotPassword.value = UiState.Success(result.data)
+                is UiState.Error -> _stateForgotPassword.value = UiState.Error(result.message)
+                else -> {}
+            }
+        }.launchIn(viewModelScope)
+    }
+
 }
