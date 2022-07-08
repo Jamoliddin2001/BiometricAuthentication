@@ -15,6 +15,7 @@ import javax.crypto.spec.GCMParameterSpec
 
 
 
+//For Max Security in feature
 interface CryptographyManager {
 
     fun getInitializedCipherForEncryption(keyName: String): Cipher
