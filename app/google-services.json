@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "912546615587",
+    "project_id": "biometricauthentication-baafa",
+    "storage_bucket": "biometricauthentication-baafa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912546615587:android:c6db57c0bc71588099bc96",
+        "android_client_info": {
+          "package_name": "tj.jamoliddin.biometricauthentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912546615587-o84r5clhu9q0dujd325f1vhu4mj3cako.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG7oYlukfyR8irXjMmdf188mjPrVukiTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912546615587-o84r5clhu9q0dujd325f1vhu4mj3cako.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
