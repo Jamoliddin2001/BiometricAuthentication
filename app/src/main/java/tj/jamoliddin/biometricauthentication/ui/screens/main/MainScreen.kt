@@ -1,9 +1,12 @@
 package tj.jamoliddin.biometricauthentication.ui.screens.main
 
+import android.content.Context
+import android.net.wifi.WifiManager
+import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.ExitToApp
@@ -15,12 +18,18 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import tj.jamoliddin.biometricauthentication.domain.model.Screen
+import tj.jamoliddin.biometricauthentication.domain.util.IP_ADDRESS1
+import tj.jamoliddin.biometricauthentication.domain.util.IP_ADDRESS2
+import tj.jamoliddin.biometricauthentication.domain.util.IP_ADDRESS3
 import tj.jamoliddin.biometricauthentication.ui.components.LogoutDialog
+import tj.jamoliddin.biometricauthentication.ui.theme.Orange
 import tj.jamoliddin.biometricauthentication.ui.theme.Primary
 
 @Composable
@@ -35,6 +44,8 @@ fun MainScreen(
     val dialogVisibility = remember {
         mutableStateOf(false)
     }
+
+
 
     LogoutDialog(dialogVisibility = dialogVisibility) {
         dialogVisibility.value = false
@@ -71,6 +82,60 @@ fun MainScreen(
         Text(text = "Контакты:  ${user?.phone}")
         Spacer(modifier = Modifier.padding(4.dp))
         Text(text = "Почта:  ${user?.email}")
+        Spacer(modifier = Modifier.padding(8.dp))
+        Button(
+            onClick = {
+                val ipAddress = getIpAddr(context)
+                if(ipAddress == IP_ADDRESS1 || ipAddress == IP_ADDRESS2 || ipAddress == IP_ADDRESS3){
+                    Toast.makeText(context, "SUCCESS", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Вы не подключены к Wi-Fi", Toast.LENGTH_SHORT).show()
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            shape = RoundedCornerShape(size = 12.dp),
+            colors = ButtonDefaults.buttonColors(
+                contentColor = Color.White,
+                backgroundColor = Orange
+            )
+        ) {
+            Text(
+                text = "Я пришёл!",
+                fontWeight = FontWeight.Medium
+            )
+        }
+
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        OutlinedButton(
+            onClick = {
+                val ipAddress = getIpAddr(context)
+                if(ipAddress == IP_ADDRESS1 || ipAddress == IP_ADDRESS2 || ipAddress == IP_ADDRESS3){
+                    Toast.makeText(context, "SUCCESS", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Вы не подключены к Wi-Fi", Toast.LENGTH_SHORT).show()
+                }
+
+            },
+            shape = RoundedCornerShape(size = 12.dp),
+            border = BorderStroke(width = 1.dp, color = Orange),
+            colors = ButtonDefaults.buttonColors(
+                contentColor = Orange,
+                backgroundColor = Color.White
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+        ) {
+            Text(
+                text = "Я ушёл!",
+                fontWeight = FontWeight.Medium
+            )
+        }
+        Spacer(modifier = Modifier.padding(10.dp))
+
 
     }
 
@@ -92,4 +157,20 @@ fun MainScreen(
         }
     }
 
+}
+
+fun getIpAddr(
+    context: Context
+): String {
+    val wifiManager =
+        context.applicationContext.getSystemService(FragmentActivity.WIFI_SERVICE) as WifiManager
+    val wifiInfo = wifiManager.connectionInfo
+    val ip = wifiInfo.ipAddress
+    return String.format(
+        "%d.%d.%d.%d",
+        ip and 0xff,
+        ip shr 8 and 0xff,
+        ip shr 16 and 0xff,
+        ip shr 24 and 0xff
+    )
 }

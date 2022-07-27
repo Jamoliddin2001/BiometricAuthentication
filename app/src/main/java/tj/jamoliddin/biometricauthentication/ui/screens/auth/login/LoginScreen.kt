@@ -1,5 +1,6 @@
 package tj.jamoliddin.biometricauthentication.ui.screens.auth.login
 
+import android.net.wifi.WifiManager
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -196,6 +198,7 @@ fun LoginScreen(
             Toast.makeText(context, loginState.message, Toast.LENGTH_LONG).show()
         }
     }
+
 }
 
 
