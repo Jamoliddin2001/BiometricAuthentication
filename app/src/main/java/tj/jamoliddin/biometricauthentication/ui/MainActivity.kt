@@ -25,10 +25,6 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val ip = getIpAddr()
-
-        Log.d("wifi", "ipAddress $ip")
-
         setContent {
             val controller = rememberSystemUiController()
             SideEffect {
@@ -43,20 +39,6 @@ class MainActivity : FragmentActivity() {
                 activity = this
             )
         }
-    }
-
-    fun getIpAddr(): String {
-        val wifiManager =
-            applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-        val wifiInfo = wifiManager.connectionInfo
-        val ip = wifiInfo.ipAddress
-        return String.format(
-            "%d.%d.%d.%d",
-            ip and 0xff,
-            ip shr 8 and 0xff,
-            ip shr 16 and 0xff,
-            ip shr 24 and 0xff
-        )
     }
 
 }
