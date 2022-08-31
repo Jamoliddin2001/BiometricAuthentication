@@ -3,6 +3,7 @@ package tj.jamoliddin.biometricauthentication.ui.screens.auth.login
 import android.net.wifi.WifiManager
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,6 +28,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import tj.jamoliddin.biometricauthentication.R
 import tj.jamoliddin.biometricauthentication.domain.UiState
 import tj.jamoliddin.biometricauthentication.domain.model.Screen
 import tj.jamoliddin.biometricauthentication.domain.util.EMAIL
@@ -72,6 +75,15 @@ fun LoginScreen(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
+            Image(
+                modifier = Modifier
+                    .size(140.dp)
+                    .align(Alignment.CenterHorizontally),
+                painter = painterResource(id = R.drawable.ibt),
+                contentDescription = "Logo"
+            )
+
+            Spacer(modifier = Modifier.padding(10.dp))
 
             Text(
                 text = "Вход",
@@ -133,8 +145,8 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    if (email != "" && password != "") {
-                        authViewModel.login(email, password)
+                    if (email.trim() != "" && password != "") {
+                        authViewModel.login(email.trim(), password)
                     } else {
                         Toast.makeText(context, "Заполните поля для входа", Toast.LENGTH_SHORT).show()
                     }

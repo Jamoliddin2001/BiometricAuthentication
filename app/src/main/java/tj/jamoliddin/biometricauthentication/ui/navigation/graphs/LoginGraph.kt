@@ -12,6 +12,7 @@ import tj.jamoliddin.biometricauthentication.domain.model.Screen
 import tj.jamoliddin.biometricauthentication.ui.screens.auth.login.ForgotPasswordScreen
 import tj.jamoliddin.biometricauthentication.ui.screens.auth.login.LoginPasswordScreen
 import tj.jamoliddin.biometricauthentication.ui.screens.auth.login.LoginScreen
+import tj.jamoliddin.biometricauthentication.ui.screens.auth.login.SplashScreen
 
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -20,9 +21,14 @@ fun NavGraphBuilder.LoginGraph(
     activity: FragmentActivity
 ) {
     navigation(
-        startDestination = Screen.LoginScreen.route,
+        startDestination = Screen.SplashScreen.route,
         route = Graph.Login.route
     ) {
+        composable(
+            route = Screen.SplashScreen.route
+        ){
+            SplashScreen(navController = navController)
+        }
         composable(
             route = Screen.LoginScreen.route
         ) {

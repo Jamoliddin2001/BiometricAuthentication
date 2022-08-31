@@ -6,9 +6,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Timestamp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import tj.jamoliddin.biometricauthentication.data.model.Came
 import tj.jamoliddin.biometricauthentication.data.model.WorkTime
 import tj.jamoliddin.biometricauthentication.domain.UiState
 import tj.jamoliddin.biometricauthentication.domain.repository.MainRepository
@@ -55,4 +57,26 @@ class MainScreenViewModel @Inject constructor(
     fun clearAll(){
         persistence.clearAll()
     }
+
+    fun setCame(came: Came){
+        persistence.setCame(came)
+    }
+
+    fun isCame(date: Timestamp): Boolean {
+        return persistence.isCame(date)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

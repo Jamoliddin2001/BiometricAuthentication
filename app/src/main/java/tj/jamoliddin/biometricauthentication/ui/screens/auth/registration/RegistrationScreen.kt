@@ -180,10 +180,10 @@ fun RegistrationScreen(
 
         Button(
             onClick = {
-                if (email != "" && password != "" && first_name != "" && second_name != "" && phone != "" && confirm_password != "") {
+                if (email.trim() != "" && password != "" && first_name.trim() != "" && second_name.trim() != "" && phone.trim() != "" && confirm_password != "") {
                     if (confirm_password == password) {
-                        val user = User(phone, first_name, second_name, email)
-                        authViewModel.register(email, password, user)
+                        val user = User(phone.trim(), first_name.trim(), second_name.trim(), email.trim())
+                        authViewModel.register(email.trim(), password.trim(), user)
                     } else Toast.makeText(context, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
                 } else
                     Toast.makeText(

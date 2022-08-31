@@ -8,4 +8,5 @@ sealed class Screen(
     object ForgotPasswordScreen: Screen("ForgotPasswordScreen")
     object RegisterScreen: Screen("RegisterScreen")
     object MainScreen: Screen("MainScreen")
+    object SplashScreen: Screen("SplashScreen")
 }
