@@ -144,5 +144,6 @@ private class CryptographyManagerImpl : CryptographyManager {
 data class CiphertextWrapper(val ciphertext: ByteArray, val initializationVector: ByteArray)
 
 fun main(){
-    print("Hello, world!")
+    val a = "something"
+    print(a.substringBefore("t"))
 }
