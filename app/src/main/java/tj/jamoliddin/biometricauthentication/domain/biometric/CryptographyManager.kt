@@ -145,5 +145,5 @@ data class CiphertextWrapper(val ciphertext: ByteArray, val initializationVector
 
 fun main(){
     val a = "something"
-    print(a.substringBefore("t"))
+    print(a.substringBefore("h"))
 }
