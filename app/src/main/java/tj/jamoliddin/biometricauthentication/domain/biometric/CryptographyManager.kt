@@ -147,3 +147,7 @@ fun main(){
     val a = "something"
     print(a.substringBefore("п"))
 }
+
+fun Math.square(a: Int): Int{
+    return a*a
+}
