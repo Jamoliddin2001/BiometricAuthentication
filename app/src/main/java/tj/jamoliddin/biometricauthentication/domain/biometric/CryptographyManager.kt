@@ -14,7 +14,6 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
 
-
 //For Max Security in feature
 interface CryptographyManager {
 
@@ -143,11 +142,16 @@ private class CryptographyManagerImpl : CryptographyManager {
 
 data class CiphertextWrapper(val ciphertext: ByteArray, val initializationVector: ByteArray)
 
-fun main(){
+fun main() {
     val a = "something"
     print(a.substringBefore("п"))
 }
 
-fun Math.square(a: Int): Int{
-    return a*a
+fun Math.square(a: Int): Int {
+    return a * a
+}
+
+fun Context.isConnect(): Boolean {
+    //TODO
+    return true
 }
