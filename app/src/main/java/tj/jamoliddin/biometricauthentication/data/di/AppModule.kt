@@ -6,7 +6,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import tj.jamoliddin.biometricauthentication.domain.util.TEACHERS
 import tj.jamoliddin.biometricauthentication.domain.util.USERS
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -28,4 +30,10 @@ object AppModule {
         firebaseFirestore: FirebaseFirestore
     ) = firebaseFirestore.collection(USERS)
 
+    @Provides
+    @Singleton
+    @Named(TEACHERS)
+    fun provideTeacherCollection(
+        firebaseFirestore: FirebaseFirestore
+    ) = firebaseFirestore.collection(TEACHERS)
 }

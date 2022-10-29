@@ -155,3 +155,7 @@ fun Context.isConnect(): Boolean {
     //TODO
     return true
 }
+
+fun square(){
+
+}
