@@ -21,5 +21,11 @@ fun NavGraphBuilder.MainGraph(
         ){
             MainScreen(navController = navController)
         }
+
+        composable(
+            route = ""
+        ) {
+
+        }
     }
 }
